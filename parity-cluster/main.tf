@@ -20,7 +20,8 @@ module "consul-client" {
 }
 
 module "monitor" {
-  source = "github.com/melonproject/terraform-azure-parity/modules/monitor"
+  source       = "github.com/melonproject/terraform-azure-parity/modules/monitor"
+  service_name = "parity-${var.chain}"
 }
 
 module "setup" {
@@ -31,7 +32,7 @@ module "setup" {
   genesis        = ""
   chain          = "${var.chain}"
   parity-version = "${var.parity-version}"
-  args           = []
+  args           = ["--jsonrpc-interface", "all", "--jsonrpc-hosts", "all", "--jsonrpc-cors", "all"]
 }
 
 module "cluster" {
